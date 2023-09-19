@@ -1,15 +1,19 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {AiOutlineMenu, AiOutlineSearch, AiOutlineClose, AiFillTag} from 'react-icons/ai'
 import {BsFillCartFill, BsPerson} from 'react-icons/bs'
 
 const TopNav = () => {
+
+  const [sideNav, setSideNav] = useState(false);
+  //console.log(sideNav);
+
   return (
     <div className='max-w-[1520px] mx-auto flex justify-between items-center p-4'>
         <div className='flex items-center'>
-           <div className='cursor-pointer'>
+           <div onClick={()=>{setSideNav(!sideNav)}} className='cursor-pointer'>
                 <AiOutlineMenu size={25}/>
             </div>
-            <h1 className='text-2xl sm:text-3xl lg:text-4xl'>
+            <h1 className='text-2xl sm:text-3xl lg:text-4xl px-2'>
               Lets <span> Eat</span>
             </h1>
             <div className='hidden lg:flex items-center bg-gray-200 rounded-full p-1 text-[14px]'>
@@ -23,9 +27,21 @@ const TopNav = () => {
             type='text'
             placeholder='search meals..'/>
         </div>
-        <button className='bg-orange-700 text-white hidden md:flex items-center rounded-full py-2'>
+        <button className='bg-orange-700 text-white hidden items-center rounded-full py-2 md:flex'>
          <BsFillCartFill size={20}/> Cart
         </button>
+        
+        {sideNav ?(
+          <div className='bg-black/50 fixed w-full h-screen z-10 top-0 left-0'></div>
+                  ) :''}
+
+        <div className={sideNav ? 'fixed top-0 left-0 w-[300px] h-screen bg-white z-10 duration-300'
+                                : 'fixed top-0 left-[-100%] w-[300px] h-screen bg-white z-10 duration-300'}>
+
+          <AiOutlineClose size={25} onClick={()=>{setSideNav(!sideNav)}}/>
+
+          </div>          
+
     </div>
   )
 }
